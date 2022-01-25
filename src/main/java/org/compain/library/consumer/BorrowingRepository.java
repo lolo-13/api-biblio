@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BorrowingRepository extends JpaRepository<Borrowing, Long> {
@@ -30,5 +31,12 @@ public interface BorrowingRepository extends JpaRepository<Borrowing, Long> {
     )
     List<Borrowing> findLateBorrowing(LocalDateTime dateTime);
 
+    @Query(
+            value =  "SELECT * FROM borrowings s " +
+                    "WHERE s.id_user = :idUser " +
+                    "AND s.copy.id_book = :idBook",
+            nativeQuery = true
+    )
+    Optional<Borrowing> findByBookAndUser(Long idUser, Long idBook);
 
 }

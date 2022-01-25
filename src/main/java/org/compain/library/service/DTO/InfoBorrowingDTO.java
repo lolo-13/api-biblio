@@ -14,5 +14,6 @@ public class InfoBorrowingDTO {
     private LocalDateTime borrowingLimitDate;
     private Boolean renewal;
     private Boolean returned;
+    private Boolean renewable;
 
 }

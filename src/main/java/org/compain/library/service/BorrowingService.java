@@ -65,10 +65,12 @@ public class BorrowingService {
         }
     }
 
+    //#FIX ticket 2 Prolongation du prêt impossible si date dépassée
+
     public void renewBorrowing(long idBorrowing) {
         LocalDateTime today = LocalDateTime.now();
         Borrowing borrowing = borrowingRepository.findByIdBorrowing(idBorrowing);
-        if (!borrowing.getRenewal() && today.isBefore(borrowing.getBorrowingLimitDate().plusWeeks(4))) {
+        if (!borrowing.getRenewal() && today.isBefore(borrowing.getBorrowingLimitDate())) {
             borrowing.setBorrowingLimitDate(borrowing.getBorrowingLimitDate().plusWeeks(4));
             borrowing.setRenewal(true);
             borrowingRepository.save(borrowing);

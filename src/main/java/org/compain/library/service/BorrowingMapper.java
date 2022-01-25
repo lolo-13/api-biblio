@@ -8,6 +8,7 @@ import org.compain.library.service.DTO.BorrowingDTO;
 import org.compain.library.service.DTO.InfoBorrowingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,6 +33,9 @@ public class BorrowingMapper {
         infoBorrowingDTO.setRenewal(borrowing.getRenewal());
         infoBorrowingDTO.setReturned(borrowing.getReturned());
         infoBorrowingDTO.setAuthor(borrowing.getCopy().getBook().getAuthor().getFirstname() + " " + borrowing.getCopy().getBook().getAuthor().getName());
+        if(borrowing.getBorrowingLimitDate().isAfter(LocalDateTime.now())){
+            infoBorrowingDTO.setRenewable(true);
+        }
         return infoBorrowingDTO;
     }
 
